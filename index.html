@@ -84,10 +84,14 @@
             padding: 0 2rem; height: 64px;
         }
         .nav-logo {
-            font-weight: 700; font-size: 1.1rem; color: var(--text);
+            display: flex; align-items: center; gap: .6rem;
+            font-weight: 700; font-size: 1rem; color: var(--text);
             text-decoration: none; letter-spacing: -.02em;
         }
-        .nav-logo span { color: var(--accent); }
+        .nav-logo img {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 2px solid var(--border);
+        }
         .nav-links { display: flex; align-items: center; gap: 1.5rem; }
         .nav-links a {
             color: var(--text2); text-decoration: none; font-size: .875rem;
@@ -169,6 +173,32 @@
         }
         .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
         .stat-label { font-size: .75rem; color: var(--text2); text-transform: uppercase; letter-spacing: .08em; margin-top: .2rem; }
+
+        /* ─── Contributions Graph ─── */
+        .contributions {
+            position: relative; z-index: 1;
+            max-width: var(--max-w); margin: 0 auto;
+            padding: 2rem 2rem 0; text-align: center;
+        }
+        .contributions-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition);
+        }
+        .contributions-card h3 {
+            font-size: 1rem; font-weight: 600; color: var(--text2);
+            margin-bottom: 1.25rem; letter-spacing: -.01em;
+        }
+        .contributions-card img {
+            width: 100%; max-width: 900px; height: auto;
+            border-radius: 8px;
+        }
+        [data-theme="dark"] .contrib-light { display: none; }
+        [data-theme="dark"] .contrib-dark { display: block; margin: 0 auto; }
+        [data-theme="light"] .contrib-light { display: block; margin: 0 auto; }
+        [data-theme="light"] .contrib-dark { display: none; }
 
         /* ─── Section ─── */
         section { position: relative; z-index: 1; }
@@ -270,6 +300,8 @@
             .hero { padding: 8rem 1.25rem 3rem; }
             .nav-inner { padding: 0 1.25rem; }
             .stats { flex-direction: column; }
+            .contributions { padding: 2rem 1rem 0; }
+            .contributions-card { padding: 1.25rem; }
         }
     </style>
 </head>
@@ -280,7 +312,10 @@
 <!-- Nav -->
 <nav>
     <div class="nav-inner">
-        <a class="nav-logo" href="#">mauricio<span>.</span>dev</a>
+        <a class="nav-logo" href="#">
+            <img src="https://avatars.githubusercontent.com/u/28116623?v=4" alt="Avatar">
+            Mauricio Oliveira
+        </a>
         <div class="nav-links">
             <a href="#projects">Projects</a>
             <a href="https://github.com/moliveirapinto" target="_blank" rel="noopener">GitHub</a>
@@ -308,7 +343,7 @@
 
     <div class="stats">
         <div class="stat">
-            <div class="stat-num" id="repo-count">8</div>
+            <div class="stat-num" id="repo-count">7</div>
             <div class="stat-label">Public Repos</div>
         </div>
         <div class="stat">
@@ -316,11 +351,20 @@
             <div class="stat-label">Focused</div>
         </div>
         <div class="stat">
-            <div class="stat-num" id="star-count">6</div>
+            <div class="stat-num" id="star-count">5</div>
             <div class="stat-label">Stars</div>
         </div>
     </div>
 </section>
+
+<!-- Contributions Graph -->
+<div class="contributions reveal">
+    <div class="contributions-card">
+        <h3>GitHub Contributions</h3>
+        <img class="contrib-dark" src="https://ghchart.rshah.org/6c63ff/moliveirapinto" alt="GitHub Contributions Graph" loading="lazy">
+        <img class="contrib-light" src="https://ghchart.rshah.org/5a52d5/moliveirapinto" alt="GitHub Contributions Graph" loading="lazy">
+    </div>
+</div>
 
 <!-- Projects -->
 <section id="projects">
@@ -433,22 +477,6 @@
             <div class="card-tags">
                 <span class="tag">JavaScript</span>
                 <span class="tag">Power Platform</span>
-            </div>
-            <div class="card-meta">
-                <span class="meta-item">⭐ 0</span>
-                <span class="meta-item">🍴 0</span>
-            </div>
-        </a>
-
-        <!-- hrb -->
-        <a class="card reveal" href="https://github.com/moliveirapinto/hrb" target="_blank" rel="noopener">
-            <div class="card-icon">📅</div>
-            <h3>hrb</h3>
-            <p>A clean, interactive appointment booking web app with calendar-based date selection, available time slots, and a smooth confirmation flow.</p>
-            <div class="card-tags">
-                <span class="tag">JavaScript</span>
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
             </div>
             <div class="card-meta">
                 <span class="meta-item">⭐ 0</span>
