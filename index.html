@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauricio Oliveira — Projects</title>
+    <meta name="description" content="Open-source Dynamics 365 Contact Center tools by Mauricio Oliveira">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ─── Reset & Tokens ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-w: 1200px;
+            --radius: 16px;
+            --transition: .3s cubic-bezier(.4,0,.2,1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a0f;
+            --bg2: #12121a;
+            --card: #16161f;
+            --card-hover: #1c1c28;
+            --border: #2a2a3a;
+            --text: #e4e4ed;
+            --text2: #9494a8;
+            --accent: #6c63ff;
+            --accent2: #8b83ff;
+            --glow: rgba(108,99,255,.15);
+            --tag-bg: rgba(108,99,255,.12);
+            --tag-text: #a8a2ff;
+            --hero-gradient: linear-gradient(135deg, #6c63ff 0%, #e040fb 50%, #00bcd4 100%);
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f5fa;
+            --bg2: #ffffff;
+            --card: #ffffff;
+            --card-hover: #f0f0f8;
+            --border: #e0e0e8;
+            --text: #1a1a2e;
+            --text2: #6b6b80;
+            --accent: #5a52d5;
+            --accent2: #7068e0;
+            --glow: rgba(90,82,213,.1);
+            --tag-bg: rgba(90,82,213,.08);
+            --tag-text: #5a52d5;
+            --hero-gradient: linear-gradient(135deg, #5a52d5 0%, #d63ae0 50%, #00a5b8 100%);
+        }
+
+        /* ─── Base ─── */
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background var(--transition), color var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* ─── Background Effect ─── */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image:
+                radial-gradient(circle at 20% 30%, var(--glow) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(224,64,251,.06) 0%, transparent 50%);
+        }
+
+        /* ─── Nav ─── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(10,10,15,.7);
+            border-bottom: 1px solid var(--border);
+            transition: background var(--transition);
+        }
+        [data-theme="light"] nav { background: rgba(245,245,250,.8); }
+        .nav-inner {
+            max-width: var(--max-w); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 2rem; height: 64px;
+        }
+        .nav-logo {
+            font-weight: 700; font-size: 1.1rem; color: var(--text);
+            text-decoration: none; letter-spacing: -.02em;
+        }
+        .nav-logo span { color: var(--accent); }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a {
+            color: var(--text2); text-decoration: none; font-size: .875rem;
+            font-weight: 500; transition: color var(--transition);
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .theme-toggle {
+            background: none; border: 1px solid var(--border); color: var(--text2);
+            width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; transition: all var(--transition);
+        }
+        .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ─── Hero ─── */
+        .hero {
+            padding: 10rem 2rem 5rem; text-align: center;
+            position: relative; z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .45rem 1rem; border-radius: 100px;
+            background: var(--tag-bg); color: var(--tag-text);
+            font-size: .8rem; font-weight: 500; margin-bottom: 1.5rem;
+            border: 1px solid rgba(108,99,255,.15);
+        }
+        .hero-badge .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #4ade80; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800; letter-spacing: -.03em;
+            line-height: 1.1; margin-bottom: 1rem;
+        }
+        .hero h1 .gradient {
+            background: var(--hero-gradient);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.15rem; color: var(--text2);
+            max-width: 600px; margin: 0 auto 2rem; font-weight: 400;
+        }
+        .hero-links {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+        }
+        .hero-links a {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .7rem 1.5rem; border-radius: 100px;
+            font-size: .9rem; font-weight: 600; text-decoration: none;
+            transition: all var(--transition);
+        }
+        .btn-primary {
+            background: var(--accent); color: #fff;
+            box-shadow: 0 4px 20px rgba(108,99,255,.3);
+        }
+        .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(108,99,255,.4); }
+        .btn-outline {
+            background: transparent; color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ─── Stats ─── */
+        .stats {
+            display: flex; gap: 1px; justify-content: center; flex-wrap: wrap;
+            margin: 3rem auto 0; max-width: 500px;
+            background: var(--border); border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .stat {
+            flex: 1; min-width: 120px; padding: 1.4rem 1rem;
+            background: var(--card); text-align: center;
+        }
+        .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: .75rem; color: var(--text2); text-transform: uppercase; letter-spacing: .08em; margin-top: .2rem; }
+
+        /* ─── Section ─── */
+        section { position: relative; z-index: 1; }
+        .section-header {
+            max-width: var(--max-w); margin: 0 auto;
+            padding: 5rem 2rem 2rem; text-align: center;
+        }
+        .section-header h2 {
+            font-size: 2rem; font-weight: 700; letter-spacing: -.02em;
+        }
+        .section-header p {
+            color: var(--text2); margin-top: .5rem; font-size: 1rem;
+        }
+
+        /* ─── Project Grid ─── */
+        .grid {
+            max-width: var(--max-w); margin: 0 auto;
+            padding: 1rem 2rem 6rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            display: flex; flex-direction: column;
+            transition: all var(--transition);
+            position: relative; overflow: hidden;
+            text-decoration: none; color: var(--text);
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--hero-gradient);
+            opacity: 0; transition: opacity var(--transition);
+        }
+        .card:hover {
+            background: var(--card-hover);
+            border-color: rgba(108,99,255,.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,.15);
+        }
+        .card:hover::before { opacity: 1; }
+        .card-icon {
+            font-size: 2rem; margin-bottom: 1rem;
+            width: 52px; height: 52px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--tag-bg); border-radius: 12px;
+        }
+        .card h3 {
+            font-size: 1.15rem; font-weight: 700;
+            letter-spacing: -.01em; margin-bottom: .5rem;
+        }
+        .card p {
+            color: var(--text2); font-size: .9rem; line-height: 1.6;
+            flex-grow: 1; margin-bottom: 1.25rem;
+        }
+        .card-tags { display: flex; gap: .5rem; flex-wrap: wrap; }
+        .tag {
+            padding: .25rem .65rem; border-radius: 100px;
+            font-size: .7rem; font-weight: 600;
+            background: var(--tag-bg); color: var(--tag-text);
+            letter-spacing: .02em;
+        }
+        .card-meta {
+            display: flex; align-items: center; gap: 1rem;
+            margin-top: 1rem; padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: .78rem; color: var(--text2);
+        }
+        .meta-item { display: flex; align-items: center; gap: .3rem; }
+
+        /* ─── Featured card spans 2 cols ─── */
+        .card.featured { grid-column: span 2; }
+        @media (max-width: 768px) { .card.featured { grid-column: span 1; } }
+
+        /* ─── Footer ─── */
+        footer {
+            position: relative; z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem; text-align: center;
+            color: var(--text2); font-size: .85rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ─── Scroll Animations ─── */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; padding: 1rem 1rem 4rem; }
+            .hero { padding: 8rem 1.25rem 3rem; }
+            .nav-inner { padding: 0 1.25rem; }
+            .stats { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<!-- Nav -->
+<nav>
+    <div class="nav-inner">
+        <a class="nav-logo" href="#">mauricio<span>.</span>dev</a>
+        <div class="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="https://github.com/moliveirapinto" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/moliveirapinto/" target="_blank" rel="noopener">LinkedIn</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge"><span class="dot"></span> Open Source</div>
+    <h1>Hi, I'm <span class="gradient">Mauricio Oliveira</span></h1>
+    <p>Customer Service &amp; Contact Center Global Black Belt at Microsoft. I build open-source tools that make Dynamics 365 Contact Center better for agents, supervisors, and customers.</p>
+    <div class="hero-links">
+        <a class="btn-primary" href="#projects">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8v13H6z"/><path d="M2 7h4v9H2z"/><path d="M10 0h4v16h-4z"/></svg>
+            View Projects
+        </a>
+        <a class="btn-outline" href="https://github.com/moliveirapinto" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+        </a>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-num" id="repo-count">8</div>
+            <div class="stat-label">Public Repos</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">D365</div>
+            <div class="stat-label">Focused</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="star-count">6</div>
+            <div class="stat-label">Stars</div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+    <div class="section-header">
+        <h2>Projects</h2>
+        <p>Open-source tools for the Dynamics 365 Contact Center ecosystem</p>
+    </div>
+
+    <div class="grid">
+
+        <!-- dynamics-audio-companion -->
+        <a class="card featured reveal" href="https://github.com/moliveirapinto/dynamics-audio-companion" target="_blank" rel="noopener">
+            <div class="card-icon">🎧</div>
+            <h3>dynamics-audio-companion</h3>
+            <p>Chrome/Edge extension that connects Bluetooth &amp; USB headsets (Bose, Jabra, Poly, Yealink, AirPods) to Dynamics 365 Contact Center. Accept, reject, hold, and mute calls with your headset buttons — no more switching windows.</p>
+            <div class="card-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">Browser Extension</span>
+                <span class="tag">WebHID</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 0</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- d365-modern-chat-widget -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/d365-modern-chat-widget" target="_blank" rel="noopener">
+            <div class="card-icon">💬</div>
+            <h3>d365-modern-chat-widget</h3>
+            <p>A modern, fully customizable chat widget for D365 Customer Service with an admin panel for branding, colors, fonts, and pre-chat form configuration.</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 3</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- d365-advanced-conversations -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/d365-advanced-conversations" target="_blank" rel="noopener">
+            <div class="card-icon">📊</div>
+            <h3>d365-advanced-conversations</h3>
+            <p>Powerful conversation management &amp; analytics for D365 Omnichannel. Search, filter, bulk-assign, export transcripts, and visualize data with interactive D3.js dashboards.</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">D3.js</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 1</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- D365-Agent-Home -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/D365-Agent-Home" target="_blank" rel="noopener">
+            <div class="card-icon">🏠</div>
+            <h3>D365-Agent-Home</h3>
+            <p>A redesigned homepage for Contact Center agents. A modern, informative landing page that gives agents everything they need at a glance in Customer Service Workspace.</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Web Resource</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 1</span>
+                <span class="meta-item">🍴 1</span>
+            </div>
+        </a>
+
+        <!-- d365Notification -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/d365Notification" target="_blank" rel="noopener">
+            <div class="card-icon">📢</div>
+            <h3>d365Notification</h3>
+            <p>Broadcast Notification System for D365 Customer Service. Supervisors can send in-app notifications to all users, specific queues, or individual agents via Canvas App + Power Automate.</p>
+            <div class="card-tags">
+                <span class="tag">PowerShell</span>
+                <span class="tag">Power Fx</span>
+                <span class="tag">Power Platform</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 0</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- AgentSurvey -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/AgentSurvey" target="_blank" rel="noopener">
+            <div class="card-icon">📋</div>
+            <h3>AgentSurvey</h3>
+            <p>Agent wrap-up survey solution for D365 Contact Center. Capture agent feedback after conversations with survey forms and analytics for supervisors.</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">D365 Solution</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 0</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- d365-app-updater -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/d365-app-updater" target="_blank" rel="noopener">
+            <div class="card-icon">🔄</div>
+            <h3>d365-app-updater</h3>
+            <p>Bulk update tool for D365 Power Platform applications. Update all your apps at once instead of one by one — a major time-saver for admins managing multiple environments.</p>
+            <div class="card-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">Power Platform</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 0</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+        <!-- hrb -->
+        <a class="card reveal" href="https://github.com/moliveirapinto/hrb" target="_blank" rel="noopener">
+            <div class="card-icon">📅</div>
+            <h3>hrb</h3>
+            <p>A clean, interactive appointment booking web app with calendar-based date selection, available time slots, and a smooth confirmation flow.</p>
+            <div class="card-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+            </div>
+            <div class="card-meta">
+                <span class="meta-item">⭐ 0</span>
+                <span class="meta-item">🍴 0</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>Built by <a href="https://github.com/moliveirapinto" target="_blank" rel="noopener">Mauricio Oliveira</a> · Microsoft &middot; Toronto, ON</p>
+    <p style="margin-top:.5rem;font-size:.75rem;color:var(--text2)">Making contact center agents' lives easier, one repo at a time.</p>
+</footer>
+
+<script>
+    // ─── Theme Toggle ───
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        document.querySelector('.theme-toggle').textContent = next === 'dark' ? '🌙' : '☀️';
+        localStorage.setItem('theme', next);
+    }
+
+    // Restore saved theme
+    (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+            document.querySelector('.theme-toggle').textContent = saved === 'dark' ? '🌙' : '☀️';
+        }
+    })();
+
+    // ─── Scroll Reveal ───
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
