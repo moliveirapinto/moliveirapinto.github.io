@@ -204,7 +204,7 @@
             max-width: var(--max-w); margin: 0 auto;
             padding: 1rem 2rem 6rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
         }
 
@@ -258,10 +258,6 @@
             font-size: .78rem; color: var(--text2);
         }
         .meta-item { display: flex; align-items: center; gap: .3rem; }
-
-        /* ─── Featured card spans 2 cols ─── */
-        .card.featured { grid-column: span 2; }
-        @media (max-width: 768px) { .card.featured { grid-column: span 1; } }
 
         /* ─── New badge ─── */
         .new-badge {
@@ -356,7 +352,7 @@
     <div class="grid">
 
         <!-- Contact-Center-IQ (NEW) -->
-        <a class="card featured reveal" href="https://github.com/moliveirapinto/Contact-Center-IQ" target="_blank" rel="noopener">
+        <a class="card reveal" href="https://github.com/moliveirapinto/Contact-Center-IQ" target="_blank" rel="noopener">
             <span class="new-badge">New</span>
             <div class="card-icon">📈</div>
             <h3>Contact-Center-IQ</h3>
@@ -425,7 +421,7 @@
         </a>
 
         <!-- dynamics-audio-companion -->
-        <a class="card featured reveal" href="https://github.com/moliveirapinto/dynamics-audio-companion" target="_blank" rel="noopener">
+        <a class="card reveal" href="https://github.com/moliveirapinto/dynamics-audio-companion" target="_blank" rel="noopener">
             <div class="card-icon">🎧</div>
             <h3>dynamics-audio-companion</h3>
             <p>Chrome/Edge extension that connects Bluetooth &amp; USB headsets (Bose, Jabra, Poly, Yealink, AirPods) to Dynamics 365 Contact Center. Accept, reject, hold, and mute calls with your headset buttons — no more switching windows.</p>
